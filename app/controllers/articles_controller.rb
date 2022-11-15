@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show edit update destroy ]
+#   skip_forgery_protection
+    skip_before_action :verify_authenticity_token
 
   # GET /articles or /articles.json
   def index
@@ -18,33 +20,28 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1/edit
   def edit
+    @article=Article.find(params[:id])
   end
 
   # POST /articles or /articles.json
   def create
-    @article = Article.new(article_params)
-
-    respond_to do |format|
-      if @article.save
-        format.html { redirect_to article_url(@article), notice: "Article was successfully created." }
-        format.json { render :show, status: :created, location: @article }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
-      end
+    @article=Article.new(params.require(:article).permit(:title, :description))
+    if @article.save
+        flash[:notice]="Article created successfully.."
+        redirect_to @article
+    else
+        render inline: @article.errors.full_messages
     end
   end
 
   # PATCH/PUT /articles/1 or /articles/1.json
   def update
-    respond_to do |format|
-      if @article.update(article_params)
-        format.html { redirect_to article_url(@article), notice: "Article was successfully updated." }
-        format.json { render :show, status: :ok, location: @article }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
-      end
+    @article=Article.find(params[:id])
+    if @article.update(params.require(:article).permit(:title, :description))
+        flash[:notice]="Article updated successfully.."
+        redirect_to @article
+    else
+        render 'edit'
     end
   end
 
