@@ -1,0 +1,25 @@
+<p style="color: green"></p>
+
+<h1>Articles</h1>
+<table>
+<thead>
+<tr>
+<th>Title</th>
+<th>Descriptions</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<% @articles.each do |art|  %>
+<tr>
+    <td><%= art.title%> </td>
+    <td><%= art.description%> </td>
+    <td>yet to do </td>
+</tr>
+<% end%>
+
+</tbody>
+
+</table>
+
+
