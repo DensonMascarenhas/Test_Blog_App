@@ -6,7 +6,7 @@
 <tr>
 <th>Title</th>
 <th>Descriptions</th>
-<th>Actions</th>
+<th colspan="3">Actions</th>
 </tr>
 </thead>
 <tbody>
@@ -14,12 +14,19 @@
 <tr>
     <td><%= art.title%> </td>
     <td><%= art.description%> </td>
-    <td>yet to do </td>
+    <td><%= link_to 'Show Record',article_path(art) %></td>
+    <td><%= link_to 'Edit Record',edit_article_path(art) %></td>
+
+    <td><%= button_to 'Delete Record',article_path(art), method: :delete, data: {turbo_confirm: "Are you sure to delete??"} %></td>
 </tr>
 <% end%>
 
 </tbody>
 
 </table>
+
+<p>
+<%=link_to "Create New Article", new_article_path %>
+</p>
 
 

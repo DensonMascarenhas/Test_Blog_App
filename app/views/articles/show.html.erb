@@ -2,3 +2,8 @@
 <h1>this is show</h1>
 <h3>title: <%= @article.title %></h3>
 <h3>Description: <%= @article.description %></h3>
+<p>
+    <td><%= link_to 'Edit Record',edit_article_path(@article) %></td>
+    <td><%= link_to 'Delete Record',article_path(@article), method: :delete, data: {confirm: "Are you sure??"} %></td>
+     <td><%= link_to 'Go Back',articles_path %></td>
+</p>
